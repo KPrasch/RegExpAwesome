@@ -11825,25 +11825,179 @@ a.anchor-link {
 <div class="reveal">
 <div class="slides">
 <section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+
+
+<span class="sd">&quot;&quot;&quot;Regular Expressions _are_ Awesome&quot;&quot;&quot;</span>
+<span class="c1">### Kieran R. Prasch</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;Regular Expressions _are_ Awesome&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Bill-Muarry">Bill Muarry<a class="anchor-link" href="#Bill-Muarry">&#182;</a></h1><h3 id="Kieran-R.-Prasch">Kieran R. Prasch<a class="anchor-link" href="#Kieran-R.-Prasch">&#182;</a></h3>
+<p><img src="https://imgs.xkcd.com/comics/regular_expressions.png" alt=""></p>
+
 </div>
 </div>
-</div></section></section><section><section>
+</div></section><section>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Properties-of-a-Circle.">Properties of a Circle.<a class="anchor-link" href="#Properties-of-a-Circle.">&#182;</a></h2><ul>
-<li>Circles are round.</li>
-<li>Formula of $\pi$:</li>
+<h1 id="Goals">Goals<a class="anchor-link" href="#Goals">&#182;</a></h1>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Cover the basics</li>
 </ul>
-$$\pi = \frac{c}{d}$$
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Share with you a few of my favorite parts about using regular expressions</li>
+</ul>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Code examples</li>
+</ul>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>(hopefully) Inspire you to use regex more often</li>
+</ul>
+
+</div>
+</div>
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="What-are-Regular-Expressions?">What are Regular Expressions?<a class="anchor-link" href="#What-are-Regular-Expressions?">&#182;</a></h1><hr>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h6 id="&quot;Regular-Expressions-are-boring.&quot;">"Regular Expressions are boring."<a class="anchor-link" href="#&quot;Regular-Expressions-are-boring.&quot;">&#182;</a></h6>
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h6 id="&quot;Looks-Scary&quot;">"Looks Scary"<a class="anchor-link" href="#&quot;Looks-Scary&quot;">&#182;</a></h6>
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h5 id="&quot;A-set-of-instructions-for-matching-any-substring-of-a-specified-pattern.&quot;"><em>"A set of instructions for matching any substring of a specified pattern."</em><a class="anchor-link" href="#&quot;A-set-of-instructions-for-matching-any-substring-of-a-specified-pattern.&quot;">&#182;</a></h5>
+</div>
+</div>
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="s1">&#39;(/^00[1-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][0-9][1-9]))|00[1-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][1-9][0-9]))|00[1-9](?=\-?[0-9][1-9](?=\-?[0-9][1-9][0-9][0-9]))|00[1-9](?=\-?[0-9][1-9](?=\-?[1-9][0-9][0-9][0-9]))|00[1-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][0-9][1-9]))|00[1-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][1-9][0-9]))|00[1-9](?=\-?[1-9][0-9](?=\-?[0-9][1-9][0-9][0-9]))|00[1-9](?=\-?[1-9][0-9](?=\-?[1-9][0-9][0-9][0-9]))|0[1-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][0-9][1-9]))|0[1-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][1-9][0-9]))|0[1-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][1-9][0-9][0-9]))|0[1-9][0-9](?=\-?[0-9][1-9](?=\-?[1-9][0-9][0-9][0-9]))|0[1-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][0-9][1-9]))|0[1-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][1-9][0-9]))|0[1-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][1-9][0-9][0-9]))|0[1-9][0-9](?=\-?[1-9][0-9](?=\-?[1-9][0-9][0-9][0-9]))|[1-5][0-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][0-9][1-9]))|[1-5][0-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][1-9][0-9]))|[1-5][0-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][1-9][0-9][0-9]))|[1-5][0-9][0-9](?=\-?[0-9][1-9](?=\-?[1-9][0-9][0-9][0-9]))|[1-5][0-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][0-9][1-9]))|[1-5][0-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][1-9][0-9]))|[1-5][0-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][1-9][0-9][0-9]))|[1-5][0-9][0-9](?=\-?[1-9][0-9](?=\-?[1-9][0-9][0-9][0-9]))|6[0-5][0-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][0-9][1-9]))|6[0-5][0-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][1-9][0-9]))|6[0-5][0-9](?=\-?[0-9][1-9](?=\-?[0-9][1-9][0-9][0-9]))|6[0-5][0-9](?=\-?[0-9][1-9](?=\-?[1-9][0-9][0-9][0-9]))|6[0-5][0-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][0-9][1-9]))|6[0-5][0-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][1-9][0-9]))|6[0-5][0-9](?=\-?[1-9][0-9](?=\-?[0-9][1-9][0-9][0-9]))|6[0-5][0-9](?=\-?[1-9][0-9](?=\-?[1-9][0-9][0-9][0-9]))|66[0-5](?=\-?[0-9][1-9](?=\-?[0-9][0-9][0-9][1-9]))|66[0-5](?=\-?[0-9][1-9](?=\-?[0-9][0-9][1-9][0-9]))|66[0-5](?=\-?[0-9][1-9](?=\-?[0-9][1-9][0-9][0-9]))|66[0-5](?=\-?[0-9][1-9](?=\-?[1-9][0-9][0-9][0-9]))|66[0-5](?=\-?[1-9][0-9](?=\-?[0-9][0-9][0-9][1-9]))|66[0-5](?=\-?[1-9][0-9](?=\-?[0-9][0-9][1-9][0-9]))|66[0-5](?=\-?[1-9][0-9](?=\-?[0-9][1-9][0-9][0-9]))|66[0-5](?=\-?[1-9][0-9](?=\-?[1-9][0-9][0-9][0-9]))|66[7-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][0-9][1-9]))|66[7-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][1-9][0-9]))|66[7-9](?=\-?[0-9][1-9](?=\-?[0-9][1-9][0-9][0-9]))|66[7-9](?=\-?[0-9][1-9](?=\-?[1-9][0-9][0-9][0-9]))|66[7-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][0-9][1-9]))|66[7-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][1-9][0-9]))|66[7-9](?=\-?[1-9][0-9](?=\-?[0-9][1-9][0-9][0-9]))|66[7-9](?=\-?[1-9][0-9](?=\-?[1-9][0-9][0-9][0-9]))|6[7-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][0-9][1-9]))|6[7-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][1-9][0-9]))|6[7-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][1-9][0-9][0-9]))|6[7-9][0-9](?=\-?[0-9][1-9](?=\-?[1-9][0-9][0-9][0-9]))|6[7-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][0-9][1-9]))|6[7-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][1-9][0-9]))|6[7-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][1-9][0-9][0-9]))|6[7-9][0-9](?=\-?[1-9][0-9](?=\-?[1-9][0-9][0-9][0-9]))|[7-8][0-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][0-9][1-9]))|[7-8][0-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][0-9][1-9][0-9]))|[7-8][0-9][0-9](?=\-?[0-9][1-9](?=\-?[0-9][1-9][0-9][0-9]))|[7-8][0-9][0-9](?=\-?[0-9][1-9](?=\-?[1-9][0-9][0-9][0-9]))|[7-8][0-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][0-9][1-9]))|[7-8][0-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][0-9][1-9][0-9]))|[7-8][0-9][0-9](?=\-?[1-9][0-9](?=\-?[0-9][1-9][0-9][0-9]))|[7-8][0-9][0-9](?=\-?[1-9][0-9](?=\-?[1-9][0-9][0-9][0-9]))$&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[2]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;(/^00[1-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][0-9][1-9]))|00[1-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][1-9][0-9]))|00[1-9](?=\\-?[0-9][1-9](?=\\-?[0-9][1-9][0-9][0-9]))|00[1-9](?=\\-?[0-9][1-9](?=\\-?[1-9][0-9][0-9][0-9]))|00[1-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][0-9][1-9]))|00[1-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][1-9][0-9]))|00[1-9](?=\\-?[1-9][0-9](?=\\-?[0-9][1-9][0-9][0-9]))|00[1-9](?=\\-?[1-9][0-9](?=\\-?[1-9][0-9][0-9][0-9]))|0[1-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][0-9][1-9]))|0[1-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][1-9][0-9]))|0[1-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][1-9][0-9][0-9]))|0[1-9][0-9](?=\\-?[0-9][1-9](?=\\-?[1-9][0-9][0-9][0-9]))|0[1-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][0-9][1-9]))|0[1-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][1-9][0-9]))|0[1-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][1-9][0-9][0-9]))|0[1-9][0-9](?=\\-?[1-9][0-9](?=\\-?[1-9][0-9][0-9][0-9]))|[1-5][0-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][0-9][1-9]))|[1-5][0-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][1-9][0-9]))|[1-5][0-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][1-9][0-9][0-9]))|[1-5][0-9][0-9](?=\\-?[0-9][1-9](?=\\-?[1-9][0-9][0-9][0-9]))|[1-5][0-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][0-9][1-9]))|[1-5][0-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][1-9][0-9]))|[1-5][0-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][1-9][0-9][0-9]))|[1-5][0-9][0-9](?=\\-?[1-9][0-9](?=\\-?[1-9][0-9][0-9][0-9]))|6[0-5][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][0-9][1-9]))|6[0-5][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][1-9][0-9]))|6[0-5][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][1-9][0-9][0-9]))|6[0-5][0-9](?=\\-?[0-9][1-9](?=\\-?[1-9][0-9][0-9][0-9]))|6[0-5][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][0-9][1-9]))|6[0-5][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][1-9][0-9]))|6[0-5][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][1-9][0-9][0-9]))|6[0-5][0-9](?=\\-?[1-9][0-9](?=\\-?[1-9][0-9][0-9][0-9]))|66[0-5](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][0-9][1-9]))|66[0-5](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][1-9][0-9]))|66[0-5](?=\\-?[0-9][1-9](?=\\-?[0-9][1-9][0-9][0-9]))|66[0-5](?=\\-?[0-9][1-9](?=\\-?[1-9][0-9][0-9][0-9]))|66[0-5](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][0-9][1-9]))|66[0-5](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][1-9][0-9]))|66[0-5](?=\\-?[1-9][0-9](?=\\-?[0-9][1-9][0-9][0-9]))|66[0-5](?=\\-?[1-9][0-9](?=\\-?[1-9][0-9][0-9][0-9]))|66[7-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][0-9][1-9]))|66[7-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][1-9][0-9]))|66[7-9](?=\\-?[0-9][1-9](?=\\-?[0-9][1-9][0-9][0-9]))|66[7-9](?=\\-?[0-9][1-9](?=\\-?[1-9][0-9][0-9][0-9]))|66[7-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][0-9][1-9]))|66[7-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][1-9][0-9]))|66[7-9](?=\\-?[1-9][0-9](?=\\-?[0-9][1-9][0-9][0-9]))|66[7-9](?=\\-?[1-9][0-9](?=\\-?[1-9][0-9][0-9][0-9]))|6[7-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][0-9][1-9]))|6[7-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][1-9][0-9]))|6[7-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][1-9][0-9][0-9]))|6[7-9][0-9](?=\\-?[0-9][1-9](?=\\-?[1-9][0-9][0-9][0-9]))|6[7-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][0-9][1-9]))|6[7-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][1-9][0-9]))|6[7-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][1-9][0-9][0-9]))|6[7-9][0-9](?=\\-?[1-9][0-9](?=\\-?[1-9][0-9][0-9][0-9]))|[7-8][0-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][0-9][1-9]))|[7-8][0-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][0-9][1-9][0-9]))|[7-8][0-9][0-9](?=\\-?[0-9][1-9](?=\\-?[0-9][1-9][0-9][0-9]))|[7-8][0-9][0-9](?=\\-?[0-9][1-9](?=\\-?[1-9][0-9][0-9][0-9]))|[7-8][0-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][0-9][1-9]))|[7-8][0-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][0-9][1-9][0-9]))|[7-8][0-9][0-9](?=\\-?[1-9][0-9](?=\\-?[0-9][1-9][0-9][0-9]))|[7-8][0-9][0-9](?=\\-?[1-9][0-9](?=\\-?[1-9][0-9][0-9][0-9]))$&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="https://i.imgflip.com/gxgvt.jpg" alt="Regex Morpheus" title="Morpheus Meme"></p>
+
 </div>
 </div>
 </div></section></section><section><section>
@@ -11852,9 +12006,1863 @@ $$\pi = \frac{c}{d}$$
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h4>
+<h2 id="Regular-Expression-are-a-special!">Regular Expression are a special!<a class="anchor-link" href="#Regular-Expression-are-a-special!">&#182;</a></h2>
 </div>
 </div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Its not just a language, but it runs inside languages</p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Whitespace Free</p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Many cups of coffee per character</p>
+
+</div>
+</div>
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Regular-Expressions-in-practice">Regular Expressions in practice<a class="anchor-link" href="#Regular-Expressions-in-practice">&#182;</a></h1><hr>
+<ul>
+<li>Log Parsing</li>
+<li>Validation        </li>
+<li>Text Analysis</li>
+<li>Web Scraping      </li>
+<li>Geocoding</li>
+<li>Feature Extraction</li>
+<li>Command Line Tools</li>
+<li>Databases         </li>
+<li>Django Routing    </li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>&lt;input pattern="(java|ecma)script" required&gt;</code></p>
+<p><code>&lt;(.*?)&gt;</code></p>
+<p><code>SELECT * FROM YourDatabase WHERE YourField REGEXP 'ty$';</code></p>
+<p><code>url(r'^post/detail/(?P&lt;slug&gt;[a-z_A-z]+)$', home),</code></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Language">Language<a class="anchor-link" href="#Language">&#182;</a></h2>
+</div>
+</div>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Commands are things that you already know - this makes it easier to learn</p>
+<p>Dialects</p>
+<p>History</p>
+
+</div>
+</div>
+</div>
+</aside></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Metacharacters">Metacharacters<a class="anchor-link" href="#Metacharacters">&#182;</a></h2><p>. ^ $ * + ? { } [ ] \ | ( )</p>
+<h2 id="Alphabet">Alphabet<a class="anchor-link" href="#Alphabet">&#182;</a></h2><p>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+<h2 id="Flags">Flags<a class="anchor-link" href="#Flags">&#182;</a></h2><ul>
+<li>Ignorecase</li>
+<li>Multiline</li>
+<li>Global</li>
+<li>Verbose</li>
+</ul>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="RegEx-Essentials">RegEx Essentials<a class="anchor-link" href="#RegEx-Essentials">&#182;</a></h2><ol>
+<li><p>quantifiers <code>*, +, ?</code></p>
+</li>
+<li><p>character classes <code>[abc], [a-z], [^a-z] and \w</code></p>
+</li>
+<li><p>groups <code>a(bc)+</code></p>
+</li>
+<li><p>Anchors <code>^ and $</code></p>
+</li>
+</ol>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1>abc <img src="./abc.jpg" alt="abcregex"></h1>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Word-Character-one-or-more-times">Word Character one or more times<a class="anchor-link" href="#Word-Character-one-or-more-times">&#182;</a></h2><h1>\w+ <img src="./wordloop.jpg" alt=""></h1>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Word-Character-zero-or-more-times.-(optional)">Word Character zero or more times. (optional)<a class="anchor-link" href="#Word-Character-zero-or-more-times.-(optional)">&#182;</a></h2><h1>\w* <img src="./wordstar.jpg" alt=""></h1>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Word-Character-exactly-3-times.">Word Character exactly 3 times.<a class="anchor-link" href="#Word-Character-exactly-3-times.">&#182;</a></h2><h1>\w{3} <img src="./wordquantifier.jpg" alt=""></h1>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Charachter-Class-exactly-three-times">Charachter Class exactly three times<a class="anchor-link" href="#Charachter-Class-exactly-three-times">&#182;</a></h2><h1>[a-c]{3} <img src="./charsetquantifier.jpg" alt=""></h1>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Character-class-exactly-three-times,-inside-a-capture-group,-with-both-line-begenning-and-end-anchors.">Character class exactly three times, inside a capture group, with both line begenning and end anchors.<a class="anchor-link" href="#Character-class-exactly-three-times,-inside-a-capture-group,-with-both-line-begenning-and-end-anchors.">&#182;</a></h2><h2>^([a-c]{3})$ <img src="./mixup.jpg" alt=""></h2>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Email-Address">Email Address<a class="anchor-link" href="#Email-Address">&#182;</a></h2><p><code>\w+@[\w_-]\.[a-z]{2,}</code></p>
+<p><img src="./email2.jpg" alt="email"></p>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Extended-formatting">Extended formatting<a class="anchor-link" href="#Extended-formatting">&#182;</a></h2><p>(+\d{1,2})?(-|()?(\d{10}|(\d{3}[-|)]{0,2}){2}\d{4})$</p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">r&quot;&quot;&quot;</span>
+
+<span class="s2">(\+\d{1,2})?               # Optional Country Code +1 or perhaps +22</span>
+<span class="s2">(-|\()?                    # Optional hyphen or open parenths for the area code.</span>
+<span class="s2">(\d</span><span class="si">{10}</span><span class="s2">                    # Try and match ten digits exactly</span>
+<span class="s2">|                          # Else</span>
+<span class="s2">(\d</span><span class="si">{3}</span><span class="s2">                     # Match three digits</span>
+<span class="s2">[\-|\)]{0,2})              # Hypen or close parenths zero through 2 times (to account for -))  </span>
+<span class="si">{2}</span><span class="s2">                        # Repeat to match the next three digits</span>
+<span class="s2">\d</span><span class="si">{4}</span><span class="s2">)                     # The remaining four digits</span>
+<span class="s2">$                          # Ensure nothing else follows </span>
+
+
+<span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Matching-against-many-types-of-phone-numbers">Matching against many types of phone numbers<a class="anchor-link" href="#Matching-against-many-types-of-phone-numbers">&#182;</a></h2><p><img src="phonenumber.jpg" alt="Phone Number" title="regex"></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Examples">Examples<a class="anchor-link" href="#Examples">&#182;</a></h1>
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Command-line">Command line<a class="anchor-link" href="#Command-line">&#182;</a></h2><p><code>$ tree -h -I '*.pyc|__pycache__'</code> - Getting a clean look at the file tree</p>
+<p><code>$ cat syslog auth.log | grep -E '([128-255]{3}\.)*?[100-255]{3}'</code> - Searching for certain IPv4 addresses</p>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Web-Scraping">Web Scraping<a class="anchor-link" href="#Web-Scraping">&#182;</a></h2>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="k">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+
+<span class="k">def</span> <span class="nf">get_speech_links</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Scrapes a list of links to speeches&quot;&quot;&quot;</span>
+    <span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;http://millercenter.org/president/speeches/&#39;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_url</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+    
+    <span class="n">little_soup</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;href&quot;</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">r&quot;&quot;&quot;</span>
+<span class="s2">    \w+           # One or more word characters</span>
+<span class="s2">    /             # A forward slash</span>
+<span class="s2">    \w+           # One or more word characters</span>
+<span class="s2">    /speeches/    # Literally</span>
+<span class="s2">    .*            # Any number of characters, or none</span>
+<span class="s2">    $             # Ensure the end of the string is met, no spaces allowed!</span>
+<span class="s2">    &quot;&quot;&quot;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span><span class="p">)})</span>
+    
+    <span class="n">links</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">little_soup</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">links</span>
+
+
+<span class="n">links</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">get_speech_links</span><span class="p">())</span>
+<span class="n">links</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&#39;/president/clinton/speeches/speech-3437&#39;,
+ &#39;/president/bush/speeches/speech-5530&#39;,
+ &#39;/president/gwbush/speeches/remarks-on-stem-cell-research-policy&#39;,
+ &#39;/president/roosevelt/speeches/message-regarding-meatpacking-plants&#39;,
+ &#39;/president/bush/speeches/speech-3432&#39;,
+ &#39;/president/obama/speeches/address-to-congress-on-the-american-jobs-act&#39;,
+ &#39;/president/polk/speeches/message-regarding-slavery-in-the-territories&#39;,
+ &#39;/president/adams/speeches/speech-3464&#39;,
+ &#39;/president/mckinley/speeches/proclamations-modifying-latin-american-commercial-agreements&#39;,
+ &#39;/president/clinton/speeches/speech-3442&#39;,
+ &#39;/president/coolidge/speeches/declaration-of-independence-anniversary-commemoration&#39;,
+ &#39;/president/grant/speeches/speech-3745&#39;,
+ &#39;/president/madison/speeches/speech-3607&#39;,
+ &#39;/president/hayes/speeches/proclamation-regarding-indian-territory&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3316&#39;,
+ &#39;/president/jefferson/speeches/speech-3473&#39;,
+ &#39;/president/coolidge/speeches/speech-3569&#39;,
+ &#39;/president/roosevelt/speeches/message-regarding-disturbances-in-texas&#39;,
+ &#39;/president/jefferson/speeches/speech-3498&#39;,
+ &#39;/president/washington/speeches/speech-3938&#39;,
+ &#39;/president/washington/speeches/speech-3456&#39;,
+ &#39;/president/obama/speeches/remarks-on-education-and-the-economy&#39;,
+ &#39;/president/washington/speeches/speech-3461&#39;,
+ &#39;/president/taft/speeches/message-regarding-economic-legislation&#39;,
+ &#39;/president/kennedy/speeches/speech-5947&#39;,
+ &#39;/president/johnson/speeches/speech-3555&#39;,
+ &#39;/president/gwbush/speeches/speech-4540&#39;,
+ &#39;/president/buchanan/speeches/speech-3732&#39;,
+ &#39;/president/madison/speeches/speech-3608&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5933&#39;,
+ &#39;/president/truman/speeches/speech-3355&#39;,
+ &#39;/president/taft/speeches/speech-3781&#39;,
+ &#39;/president/wilson/speeches/speech-3566&#39;,
+ &#39;/president/mckinley/speeches/speech-3563&#39;,
+ &#39;/president/tyler/speeches/message-to-senate-on-negotiations-with-britain&#39;,
+ &#39;/president/polk/speeches/message-regarding-size-of-the-army&#39;,
+ &#39;/president/cleveland/speeches/veto-message-regarding-immigration-legislation1&#39;,
+ &#39;/president/tyler/speeches/address-upon-assuming-the-office-of-president-of-the-united-states&#39;,
+ &#39;/president/taft/speeches/speech-3565&#39;,
+ &#39;/president/polk/speeches/announcement-of-war-with-mexico&#39;,
+ &#39;/president/fdroosevelt/speeches/high-wages-for-high-production&#39;,
+ &#39;/president/gwbush/speeches/remarks-on-hurricane-katrina-relief-efforts&#39;,
+ &#39;/president/gwbush/speeches/address-on-renewal-in-iraq&#39;,
+ &#39;/president/ford/speeches/speech-5498&#39;,
+ &#39;/president/nixon/speeches/speech-3880&#39;,
+ &#39;/president/polk/speeches/message-regarding-war-time-measures&#39;,
+ &#39;/president/carter/speeches/speech-5536&#39;,
+ &#39;/president/clinton/speeches/speech-3440&#39;,
+ &#39;/president/kennedy/speeches/speech-3369&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3325&#39;,
+ &#39;/president/taft/speeches/message-regarding-tariff-legislation&#39;,
+ &#39;/president/reagan/speeches/speech-5866&#39;,
+ &#39;/president/kennedy/speeches/speech-3363&#39;,
+ &#39;/president/harding/speeches/the-american-soldier&#39;,
+ &#39;/president/carter/speeches/speech-5539&#39;,
+ &#39;/president/buchanan/speeches/protest-of-congressional-investigations&#39;,
+ &#39;/president/jefferson/speeches/speech-3475&#39;,
+ &#39;/president/reagan/speeches/speech-5448&#39;,
+ &#39;/president/lincoln/speeches/speech-3505&#39;,
+ &#39;/president/nixon/speeches/speech-3871&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5910&#39;,
+ &#39;/president/roosevelt/speeches/speech-3773&#39;,
+ &#39;/president/jefferson/speeches/speech-3477&#39;,
+ &#39;/president/johnson/speeches/second-annual-message2&#39;,
+ &#39;/president/harding/speeches/an-association-of-nations&#39;,
+ &#39;/president/kennedy/speeches/speech-5953&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3311&#39;,
+ &#39;/president/mckinley/speeches/message-regarding-cuban-civil-war&#39;,
+ &#39;/president/grant/speeches/speech-3746&#39;,
+ &#39;/president/hayes/speeches/prohibition-of-federal-employees-political-involvement&#39;,
+ &#39;/president/gwbush/speeches/temporary-worker-program-proposal&#39;,
+ &#39;/president/bush/speeches/speech-5531&#39;,
+ &#39;/president/roosevelt/speeches/speech-3776&#39;,
+ &#39;/president/gwbush/speeches/address-to-the-nation-on-the-department-of-homeland-security&#39;,
+ &#39;/president/clinton/speeches/speech-4597&#39;,
+ &#39;/president/nixon/speeches/speech-3888&#39;,
+ &#39;/president/grant/speeches/speech-3741&#39;,
+ &#39;/president/jqadams/speeches/speech-3515&#39;,
+ &#39;/president/harding/speeches/safeguarding-america&#39;,
+ &#39;/president/fdroosevelt/speeches/americanism&#39;,
+ &#39;/president/truman/speeches/speech-3820&#39;,
+ &#39;/president/reagan/speeches/speech-5449&#39;,
+ &#39;/president/kennedy/speeches/speech-5946&#39;,
+ &#39;/president/obama/speeches/speech-on-the-bp-oil-spill&#39;,
+ &#39;/president/obama/speeches/press-conference-after-2010-midterm-elections&#39;,
+ &#39;/president/reagan/speeches/speech-5855&#39;,
+ &#39;/president/wilson/speeches/speech-3793&#39;,
+ &#39;/president/gwbush/speeches/speech-4450&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5907&#39;,
+ &#39;/president/roosevelt/speeches/speech-3777&#39;,
+ &#39;/president/bharrison/speeches/message-regarding-valparaiso-incident&#39;,
+ &#39;/president/arthur/speeches/message-regarding-congress-of-american-countries&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3319&#39;,
+ &#39;/president/reagan/speeches/speech-3416&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5935&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3305&#39;,
+ &#39;/president/obama/speeches/speech-on-economic-mobility&#39;,
+ &#39;/president/mckinley/speeches/speech-3771&#39;,
+ &#39;/president/johnson/speeches/veto-message-regarding-regulations-on-confederate-states&#39;,
+ &#39;/president/monroe/speeches/speech-3598&#39;,
+ &#39;/president/monroe/speeches/speech-3602&#39;,
+ &#39;/president/wilson/speeches/message-regarding-world-war-i&#39;,
+ &#39;/president/jackson/speeches/veto-message-regarding-funding-of-infrastructure-development&#39;,
+ &#39;/president/hayes/speeches/veto-message-regarding-appropriations-legislation&#39;,
+ &#39;/president/kennedy/speeches/speech-5951&#39;,
+ &#39;/president/kennedy/speeches/speech-5743&#39;,
+ &#39;/president/hoover/speeches/message-regarding-law-enforcement&#39;,
+ &#39;/president/jackson/speeches/speech-3485&#39;,
+ &#39;/president/cleveland/speeches/message-on-federal-employee-political-involvement&#39;,
+ &#39;/president/truman/speeches/speech-3345&#39;,
+ &#39;/president/taylor/speeches/first-annual-message1&#39;,
+ &#39;/president/gwbush/speeches/proposal-for-global-fund-to-fight-hiv-aids-malaria-and-tuberculosis&#39;,
+ &#39;/president/polk/speeches/message-regarding-the-treaty-of-guadalupe-hidalgo1&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5938&#39;,
+ &#39;/president/madison/speeches/speech-3616&#39;,
+ &#39;/president/gwbush/speeches/speech-4454&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3317&#39;,
+ &#39;/president/bush/speeches/speech-5532&#39;,
+ &#39;/president/nixon/speeches/speech-3873&#39;,
+ &#39;/president/wilson/speeches/speech-4722&#39;,
+ &#39;/president/obama/speeches/speech-5548&#39;,
+ &#39;/president/obama/speeches/remarks-on-the-death-of-osama-bin-laden&#39;,
+ &#39;/president/reagan/speeches/speech-5678&#39;,
+ &#39;/president/lincoln/speeches/speech-3512&#39;,
+ &#39;/president/madison/speeches/speech-3620&#39;,
+ &#39;/president/fdroosevelt/speeches/the-republican-party&#39;,
+ &#39;/president/obama/speeches/remarks-on-nominating-judge-sonia-sotomayor-to-the-u.s.-supreme-court&#39;,
+ &#39;/president/gwbush/speeches/speech-4541&#39;,
+ &#39;/president/mckinley/speeches/speech-3772&#39;,
+ &#39;/president/johnson/speeches/third-annual-message-to-congress1&#39;,
+ &#39;/president/johnson/speeches/message-regarding-the-suspension-of-secretary-stanton&#39;,
+ &#39;/president/washington/speeches/speech-3460&#39;,
+ &#39;/president/kennedy/speeches/speech-5732&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4034&#39;,
+ &#39;/president/nixon/speeches/speech-3587&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5902&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3326&#39;,
+ &#39;/president/bharrison/speeches/messages-regarding-the-international-american-conference&#39;,
+ &#39;/president/obama/speeches/address-to-the-nation-on-syria&#39;,
+ &#39;/president/pierce/speeches/message-regarding-transit-across-central-america&#39;,
+ &#39;/president/clinton/speeches/speech-3929&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5664&#39;,
+ &#39;/president/taylor/speeches/speech-3551&#39;,
+ &#39;/president/gwbush/speeches/speech-on-financial-markets-and-the-world-economy&#39;,
+ &#39;/president/wilson/speeches/message-regarding-german-actions&#39;,
+ &#39;/president/cleveland/speeches/announcement-of-treasury-bond-sale&#39;,
+ &#39;/president/vanburen/speeches/speech-3725&#39;,
+ &#39;/president/carter/speeches/speech-3935&#39;,
+ &#39;/president/gwbush/speeches/speech-3645&#39;,
+ &#39;/president/clinton/speeches/speech-4155&#39;,
+ &#39;/president/buchanan/speeches/addendum-to-march-28-message-to-congress&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3334&#39;,
+ &#39;/president/harding/speeches/speech-accepting-the-republican-nomination2&#39;,
+ &#39;/president/clinton/speeches/speech-3933&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5936&#39;,
+ &#39;/president/bharrison/speeches/speech-3766&#39;,
+ &#39;/president/kennedy/speeches/speech-5762&#39;,
+ &#39;/president/fdroosevelt/speeches/the-american-soldier&#39;,
+ &#39;/president/reagan/speeches/speech-5463&#39;,
+ &#39;/president/monroe/speeches/speech-3594&#39;,
+ &#39;/president/harding/speeches/speech-upon-arrival-of-world-war-one-dead-for-burial&#39;,
+ &#39;/president/buchanan/speeches/veto-message-regarding-land-grant-colleges&#39;,
+ &#39;/president/clinton/speeches/speech-3932&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5667&#39;,
+ &#39;/president/cleveland/speeches/speech-3756&#39;,
+ &#39;/president/polk/speeches/message-regarding-treaty-of-guadelupe-hidalgo&#39;,
+ &#39;/president/kennedy/speeches/speech-3362&#39;,
+ &#39;/president/reagan/speeches/speech-5867&#39;,
+ &#39;/president/carter/speeches/speech-5534&#39;,
+ &#39;/president/roosevelt/speeches/message-regarding-panama-canal&#39;,
+ &#39;/president/reagan/speeches/speech-5862&#39;,
+ &#39;/president/obama/speeches/statement-on-the-government-sequester&#39;,
+ &#39;/president/taft/speeches/message-regarding-income-tax&#39;,
+ &#39;/president/vanburen/speeches/speech-3592&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3331&#39;,
+ &#39;/president/jackson/speeches/message-regarding-treaties-with-the-choctaw-nation-of-indians&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5937&#39;,
+ &#39;/president/tyler/speeches/veto-message-regarding-the-bank-of-the-united-states&#39;,
+ &#39;/president/clinton/speeches/speech-5496&#39;,
+ &#39;/president/adams/speeches/speech-3467&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5916&#39;,
+ &#39;/president/clinton/speeches/speech-4596&#39;,
+ &#39;/president/hayes/speeches/message-regarding-election-regulations&#39;,
+ &#39;/president/reagan/speeches/speech-5857&#39;,
+ &#39;/president/obama/speeches/speech-5502&#39;,
+ &#39;/president/kennedy/speeches/speech-5948&#39;,
+ &#39;/president/washington/speeches/speech-3449&#39;,
+ &#39;/president/reagan/speeches/speech-3409&#39;,
+ &#39;/president/roosevelt/speeches/message-regarding-labor-legislation&#39;,
+ &#39;/president/truman/speeches/speech-3352&#39;,
+ &#39;/president/nixon/speeches/speech-3877&#39;,
+ &#39;/president/roosevelt/speeches/speech-3780&#39;,
+ &#39;/president/jackson/speeches/speech-3642&#39;,
+ &#39;/president/madison/speeches/speech-3629&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3336&#39;,
+ &#39;/president/pierce/speeches/speech-3728&#39;,
+ &#39;/president/jefferson/speeches/speech-3499&#39;,
+ &#39;/president/ford/speeches/speech-3522&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3312&#39;,
+ &#39;/president/nixon/speeches/speech-3891&#39;,
+ &#39;/president/kennedy/speeches/speech-5739&#39;,
+ &#39;/president/truman/speeches/speech-3339&#39;,
+ &#39;/president/reagan/speeches/speech-5459&#39;,
+ &#39;/president/kennedy/speeches/speech-3677&#39;,
+ &#39;/president/hoover/speeches/second-state-of-the-union-address&#39;,
+ &#39;/president/johnson/speeches/veto-message-on-admitting-nebraska-into-the-union&#39;,
+ &#39;/president/johnson/speeches/message-regarding-the-removal-of-secretary-stanton&#39;,
+ &#39;/president/wilson/speeches/speech-3789&#39;,
+ &#39;/president/arthur/speeches/speech-3560&#39;,
+ &#39;/president/carter/speeches/speech-3286&#39;,
+ &#39;/president/taft/speeches/speech-3786&#39;,
+ &#39;/president/madison/speeches/speech-3619&#39;,
+ &#39;/president/clinton/speeches/speech-3927&#39;,
+ &#39;/president/wilson/speeches/speech-3796&#39;,
+ &#39;/president/bush/speeches/speech-3433&#39;,
+ &#39;/president/truman/speeches/speech-3351&#39;,
+ &#39;/president/johnson/speeches/veto-message-regarding-electoral-college-participation&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5915&#39;,
+ &#39;/president/johnson/speeches/veto-message-regarding-rebel-state-governments&#39;,
+ &#39;/president/tyler/speeches/second-annual-message&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3805&#39;,
+ &#39;/president/kennedy/speeches/speech-5949&#39;,
+ &#39;/president/madison/speeches/speech-3625&#39;,
+ &#39;/president/bush/speeches/speech-3429&#39;,
+ &#39;/president/jefferson/speeches/speech-3497&#39;,
+ &#39;/president/jackson/speeches/speech-3634&#39;,
+ &#39;/president/pierce/speeches/proclamation-addressing-disturbances-in-kansas&#39;,
+ &#39;/president/monroe/speeches/speech-3597&#39;,
+ &#39;/president/carter/speeches/speech-5533&#39;,
+ &#39;/president/cleveland/speeches/speech-3764&#39;,
+ &#39;/president/harding/speeches/high-wages-for-high-production&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4000&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5908&#39;,
+ &#39;/president/gwbush/speeches/remarks-on-plan-to-assist-automakers&#39;,
+ &#39;/president/clinton/speeches/speech-3439&#39;,
+ &#39;/president/kennedy/speeches/speech-3370&#39;,
+ &#39;/president/jefferson/speeches/speech-3491&#39;,
+ &#39;/president/obama/speeches/remarks-at-memorial-for-victims-of-the-tucson-az-shooting&#39;,
+ &#39;/president/ford/speeches/speech-3393&#39;,
+ &#39;/president/fdroosevelt/speeches/safeguarding-america&#39;,
+ &#39;/president/pierce/speeches/expansion-of-august-4-veto-message&#39;,
+ &#39;/president/obama/speeches/remarks-on-wall-street-reform&#39;,
+ &#39;/president/reagan/speeches/speech-5864&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5919&#39;,
+ &#39;/president/jackson/speeches/speech-3640&#39;,
+ &#39;/president/vanburen/speeches/speech-3589&#39;,
+ &#39;/president/grant/speeches/speech-3556&#39;,
+ &#39;/president/monroe/speeches/speech-3596&#39;,
+ &#39;/president/mckinley/speeches/proclamation-calling-for-military-volunteers&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3383&#39;,
+ &#39;/president/jackson/speeches/speech-3636&#39;,
+ &#39;/president/johnson/speeches/fourth-annual-message-to-congress1&#39;,
+ &#39;/president/gwbush/speeches/remarks-at-the-un-general-assembly&#39;,
+ &#39;/president/wilson/speeches/speech-3798&#39;,
+ &#39;/president/taylor/speeches/message-regarding-newly-acquired-territories&#39;,
+ &#39;/president/reagan/speeches/speech-5456&#39;,
+ &#39;/president/reagan/speeches/speech-3923&#39;,
+ &#39;/president/polk/speeches/message-regarding-the-oregon-territory&#39;,
+ &#39;/president/kennedy/speeches/speech-3372&#39;,
+ &#39;/president/grant/speeches/proclamation-establishing-eight-hour-workday&#39;,
+ &#39;/president/bharrison/speeches/message-regarding-hawaiian-annexation&#39;,
+ &#39;/president/truman/speeches/speech-3346&#39;,
+ &#39;/president/wilson/speeches/speech-3792&#39;,
+ &#39;/president/cleveland/speeches/speech-3763&#39;,
+ &#39;/president/jackson/speeches/message-regarding-indian-relations&#39;,
+ &#39;/president/harding/speeches/americanism&#39;,
+ &#39;/president/clinton/speeches/speech-3930&#39;,
+ &#39;/president/taylor/speeches/message-regarding-treaty-with-great-britain&#39;,
+ &#39;/president/cleveland/speeches/announcing-the-continuation-of-us-neutrality&#39;,
+ &#39;/president/carter/speeches/speech-3928&#39;,
+ &#39;/president/reagan/speeches/speech-5859&#39;,
+ &#39;/president/wilson/speeches/speech-3787&#39;,
+ &#39;/president/polk/speeches/third-annual-message&#39;,
+ &#39;/president/gwbush/speeches/final-press-conference&#39;,
+ &#39;/president/roosevelt/speeches/speech-3774&#39;,
+ &#39;/president/hayes/speeches/speech-3749&#39;,
+ &#39;/president/jefferson/speeches/speech-3501&#39;,
+ &#39;/president/nixon/speeches/speech-3890&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5909&#39;,
+ &#39;/president/cleveland/speeches/message-regarding-the-financial-crisis&#39;,
+ &#39;/president/hayes/speeches/veto-message-regarding-economic-legislation&#39;,
+ &#39;/president/jqadams/speeches/speech-3516&#39;,
+ &#39;/president/wilson/speeches/speech-3802&#39;,
+ &#39;/president/mckinley/speeches/remarks-on-the-centennial-of-washingtons-inauguration&#39;,
+ &#39;/president/carter/speeches/speech-5537&#39;,
+ &#39;/president/obama/speeches/2011-state-of-the-union&#39;,
+ &#39;/president/kennedy/speeches/speech-3364&#39;,
+ &#39;/president/cleveland/speeches/veto-of-texas-seed-bill&#39;,
+ &#39;/president/madison/speeches/speech-3626&#39;,
+ &#39;/president/reagan/speeches/speech-3414&#39;,
+ &#39;/president/grant/speeches/message-regarding-presidential-election&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3955&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3380&#39;,
+ &#39;/president/kennedy/speeches/speech-5742&#39;,
+ &#39;/president/clinton/speeches/speech-4565&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3309&#39;,
+ &#39;/president/hoover/speeches/message-regarding-unemployment-relief1&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3300&#39;,
+ &#39;/president/roosevelt/speeches/message-regarding-the-state-of-puerto-rico&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5905&#39;,
+ &#39;/president/ford/speeches/speech-3390&#39;,
+ &#39;/president/jqadams/speeches/message-regarding-the-congress-of-american-nations&#39;,
+ &#39;/president/clinton/speeches/speech-4600&#39;,
+ &#39;/president/johnson/speeches/executive-order-regarding-discharged-prisoners-of-war&#39;,
+ &#39;/president/jackson/speeches/speech-3635&#39;,
+ &#39;/president/gwbush/speeches/address-to-the-nation-on-stem-cell-research&#39;,
+ &#39;/president/nixon/speeches/speech-3588&#39;,
+ &#39;/president/truman/speeches/speech-3353&#39;,
+ &#39;/president/kennedy/speeches/speech-5763&#39;,
+ &#39;/president/roosevelt/speeches/speech-3778&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3323&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3804&#39;,
+ &#39;/president/cleveland/speeches/message-regarding-treaty-with-britain&#39;,
+ &#39;/president/carter/speeches/speech-5538&#39;,
+ &#39;/president/eisenhower/speeches/speech-3361&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5920&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3327&#39;,
+ &#39;/president/clinton/speeches/speech-4566&#39;,
+ &#39;/president/harrison/speeches/speech-3548&#39;,
+ &#39;/president/gwbush/speeches/remarks-on-faith-based-and-community-initiatives&#39;,
+ &#39;/president/hayes/speeches/veto-of-army-appropriations-bill&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3335&#39;,
+ &#39;/president/reagan/speeches/speech-5860&#39;,
+ &#39;/president/carter/speeches/speech-5547&#39;,
+ &#39;/president/jackson/speeches/message-on-the-constitutional-rights-and-responsibilities-of-the-president&#39;,
+ &#39;/president/madison/speeches/speech-3630&#39;,
+ &#39;/president/wilson/speeches/speech-3797&#39;,
+ &#39;/president/grant/speeches/proclamation-suspending-habeas-corpus&#39;,
+ &#39;/president/washington/speeches/speech-3939&#39;,
+ &#39;/president/madison/speeches/speech-3611&#39;,
+ &#39;/president/roosevelt/speeches/message-regarding-us-cuban-commercial-convention&#39;,
+ &#39;/president/hayes/speeches/veto-message-regarding-military-legislation&#39;,
+ &#39;/president/wilson/speeches/message-regarding-us-german-relations&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3298&#39;,
+ &#39;/president/jefferson/speeches/speech-3500&#39;,
+ &#39;/president/gwbush/speeches/remarks-on-national-security-and-the-war-effort&#39;,
+ &#39;/president/coolidge/speeches/address-regarding-washingtons-birthday&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4031&#39;,
+ &#39;/president/taft/speeches/speech-3784&#39;,
+ &#39;/president/grant/speeches/proclamation-regarding-disturbances-in-louisiana&#39;,
+ &#39;/president/bush/speeches/speech-3430&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5657&#39;,
+ &#39;/president/nixon/speeches/speech-3874&#39;,
+ &#39;/president/hayes/speeches/speech-3750&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3337&#39;,
+ &#39;/president/hoover/speeches/message-regarding-black-thursday&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-upon-arrival-of-world-war-one-dead-for-burial&#39;,
+ &#39;/president/ford/speeches/speech-5600&#39;,
+ &#39;/president/johnson/speeches/message-regarding-reconstruction-legislation&#39;,
+ &#39;/president/jackson/speeches/speech-3639&#39;,
+ &#39;/president/gwbush/speeches/remarks-on-emergency-economic-stabilization-act-of-2008&#39;,
+ &#39;/president/bush/speeches/speech-3424&#39;,
+ &#39;/president/grant/speeches/announcement-of-fifteenth-amendment-ratification&#39;,
+ &#39;/president/hayes/speeches/speech-3558&#39;,
+ &#39;/president/carter/speeches/speech-3404&#39;,
+ &#39;/president/jackson/speeches/addendum-to-the-protest-of-senate-censure&#39;,
+ &#39;/president/reagan/speeches/speech-5447&#39;,
+ &#39;/president/obama/speeches/speech-on-strategy-in-afghanistan-and-pakistan&#39;,
+ &#39;/president/reagan/speeches/speech-5677&#39;,
+ &#39;/president/hoover/speeches/address-to-the-american-bankers-association&#39;,
+ &#39;/president/harding/speeches/enduring-popular-government&#39;,
+ &#39;/president/monroe/speeches/speech-3483&#39;,
+ &#39;/president/reagan/speeches/speech-5455&#39;,
+ &#39;/president/bush/speeches/speech-3984&#39;,
+ &#39;/president/fillmore/speeches/announcement-of-texas-acceptance-of-compromise-propositions&#39;,
+ &#39;/president/washington/speeches/speech-3463&#39;,
+ &#39;/president/coolidge/speeches/speech-3808&#39;,
+ &#39;/president/madison/speeches/speech-3610&#39;,
+ &#39;/president/kennedy/speeches/speech-5764&#39;,
+ &#39;/president/bush/speeches/speech-5527&#39;,
+ &#39;/president/reagan/speeches/speech-5861&#39;,
+ &#39;/president/wilson/speeches/speech-3794&#39;,
+ &#39;/president/grant/speeches/veto-message-on-monetary-legislation&#39;,
+ &#39;/president/hoover/speeches/campaign-speech-in-madison-square-garden&#39;,
+ &#39;/president/gwbush/speeches/address-to-the-nation-on-the-terrorist-attacks&#39;,
+ &#39;/president/hoover/speeches/speech-3570&#39;,
+ &#39;/president/cleveland/speeches/speech-3758&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5661&#39;,
+ &#39;/president/arthur/speeches/veto-of-river-and-harbors-act&#39;,
+ &#39;/president/johnson/speeches/proclamation-on-the-end-of-the-confederate-insurrection&#39;,
+ &#39;/president/buchanan/speeches/speech-3735&#39;,
+ &#39;/president/kennedy/speeches/speech-3378&#39;,
+ &#39;/president/vanburen/speeches/message-regarding-disturbances-and-hostilities-on-the-canadian-border&#39;,
+ &#39;/president/arthur/speeches/address-upon-assuming-the-office-of-the-president&#39;,
+ &#39;/president/clinton/speeches/speech-4561&#39;,
+ &#39;/president/monroe/speeches/speech-3606&#39;,
+ &#39;/president/carter/speeches/speech-3398&#39;,
+ &#39;/president/clinton/speeches/speech-4595&#39;,
+ &#39;/president/jackson/speeches/speech-3643&#39;,
+ &#39;/president/kennedy/speeches/speech-3374&#39;,
+ &#39;/president/lincoln/speeches/speech-3510&#39;,
+ &#39;/president/harding/speeches/opening-speech-of-the-conference-on-limitation-of-armament&#39;,
+ &#39;/president/jackson/speeches/message-regarding-south-carolina-nullification-of-federal-legislation&#39;,
+ &#39;/president/hoover/speeches/statement-on-unemployment-relief&#39;,
+ &#39;/president/gwbush/speeches/address-on-the-start-of-the-iraq-war&#39;,
+ &#39;/president/mckinley/speeches/speech-3562&#39;,
+ &#39;/president/washington/speeches/speech-3450&#39;,
+ &#39;/president/cleveland/speeches/message-on-the-statue-of-liberty&#39;,
+ &#39;/president/obama/speeches/2015-state-of-the-union-address&#39;,
+ &#39;/president/jefferson/speeches/speech-3474&#39;,
+ &#39;/president/reagan/speeches/speech-3418&#39;,
+ &#39;/president/coolidge/speeches/speech-3807&#39;,
+ &#39;/president/kennedy/speeches/speech-3366&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3321&#39;,
+ &#39;/president/reagan/speeches/speech-5853&#39;,
+ &#39;/president/truman/speeches/speech-3347&#39;,
+ &#39;/president/fdroosevelt/speeches/america&#39;,
+ &#39;/president/mckinley/speeches/message-regarding-banking-and-currency-laws&#39;,
+ &#39;/president/lincoln/speeches/speech-3504&#39;,
+ &#39;/president/jefferson/speeches/speech-3494&#39;,
+ &#39;/president/roosevelt/speeches/message-regarding-conditions-in-panama&#39;,
+ &#39;/president/nixon/speeches/speech-3875&#39;,
+ &#39;/president/tyler/speeches/fourth-annual-message&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5921&#39;,
+ &#39;/president/adams/speeches/speech-3468&#39;,
+ &#39;/president/washington/speeches/speech-3459&#39;,
+ &#39;/president/nixon/speeches/speech-3886&#39;,
+ &#39;/president/gwbush/speeches/speech-4452&#39;,
+ &#39;/president/taft/speeches/message-regarding-environmental-preservation&#39;,
+ &#39;/president/roosevelt/speeches/message-convening-a-special-session-of-congress&#39;,
+ &#39;/president/grant/speeches/speech-3740&#39;,
+ &#39;/president/gwbush/speeches/speech-4461&#39;,
+ &#39;/president/madison/speeches/speech-3621&#39;,
+ &#39;/president/jefferson/speeches/speech-3469&#39;,
+ &#39;/president/eisenhower/speeches/speech-3356&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3333&#39;,
+ &#39;/president/bharrison/speeches/message-regarding-us-chilean-affairs&#39;,
+ &#39;/president/mckinley/speeches/speech-accepting-the-republican-nomination1&#39;,
+ &#39;/president/pierce/speeches/message-regarding-disturbances-in-kansas&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3381&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5917&#39;,
+ &#39;/president/hayes/speeches/speech-3748&#39;,
+ &#39;/president/eisenhower/speeches/speech-3360&#39;,
+ &#39;/president/jackson/speeches/protest-of-senate-censure&#39;,
+ &#39;/president/truman/speeches/speech-3343&#39;,
+ &#39;/president/washington/speeches/speech-3941&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3315&#39;,
+ &#39;/president/wilson/speeches/speech-3799&#39;,
+ &#39;/president/clinton/speeches/speech-4601&#39;,
+ &#39;/president/grant/speeches/message-regarding-us-international-relations&#39;,
+ &#39;/president/madison/speeches/speech-3615&#39;,
+ &#39;/president/polk/speeches/veto-message-regarding-funding-internal-improvements&#39;,
+ &#39;/president/truman/speeches/speech-3348&#39;,
+ &#39;/president/polk/speeches/first-annual-message&#39;,
+ &#39;/president/gwbush/speeches/graduation-speech-at-west-point&#39;,
+ &#39;/president/adams/speeches/speech-3944&#39;,
+ &#39;/president/reagan/speeches/speech-3924&#39;,
+ &#39;/president/kennedy/speeches/speech-3373&#39;,
+ &#39;/president/johnson/speeches/veto-message-on-freedmen-and-refugee-relief-bureau-legislation&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3329&#39;,
+ &#39;/president/cleveland/speeches/message-regarding-u.s.-labor-force&#39;,
+ &#39;/president/coolidge/speeches/speech-3812&#39;,
+ &#39;/president/wilson/speeches/memorial-day-address&#39;,
+ &#39;/president/hoover/speeches/message-regarding-the-smoot-hawley-tariff-act&#39;,
+ &#39;/president/jqadams/speeches/message-regarding-the-creek-indians&#39;,
+ &#39;/president/obama/speeches/remarks-on-the-end-of-the-war-in-iraq&#39;,
+ &#39;/president/carter/speeches/speech-3936&#39;,
+ &#39;/president/clinton/speeches/speech-3441&#39;,
+ &#39;/president/kennedy/speeches/speech-5945&#39;,
+ &#39;/president/pierce/speeches/speech-3731&#39;,
+ &#39;/president/adams/speeches/speech-3943&#39;,
+ &#39;/president/buchanan/speeches/message-on-threats-to-the-peace-and-existence-of-the-union&#39;,
+ &#39;/president/buchanan/speeches/message-regarding-the-presence-of-troops-in-washington-dc&#39;,
+ &#39;/president/polk/speeches/war-message-to-congress&#39;,
+ &#39;/president/grant/speeches/message-on-civil-service-reform&#39;,
+ &#39;/president/coolidge/speeches/speech-3806&#39;,
+ &#39;/president/arthur/speeches/speech-3752&#39;,
+ &#39;/president/buchanan/speeches/speech-3734&#39;,
+ &#39;/president/polk/speeches/message-regarding-the-treaty-of-guadalupe-hidalgo&#39;,
+ &#39;/president/fdroosevelt/speeches/an-association-of-nations&#39;,
+ &#39;/president/truman/speeches/speech-3349&#39;,
+ &#39;/president/bush/speeches/speech-3426&#39;,
+ &#39;/president/truman/speeches/speech-3350&#39;,
+ &#39;/president/nixon/speeches/speech-3878&#39;,
+ &#39;/president/reagan/speeches/speech-5470&#39;,
+ &#39;/president/hoover/speeches/speech-6000&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5932&#39;,
+ &#39;/president/wilson/speeches/speech-3790&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3526&#39;,
+ &#39;/president/bush/speeches/speech-3421&#39;,
+ &#39;/president/johnson/speeches/order-ending-commercial-restrictions-on-confederate-states&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3817&#39;,
+ &#39;/president/taft/speeches/speech-3785&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5930&#39;,
+ &#39;/president/jefferson/speeches/speech-3492&#39;,
+ &#39;/president/washington/speeches/speech-3448&#39;,
+ &#39;/president/nixon/speeches/speech-3887&#39;,
+ &#39;/president/clinton/speeches/speech-5494&#39;,
+ &#39;/president/obama/speeches/remarks-in-eulogy-for-the-honorable-reverend-clementa-pickney&#39;,
+ &#39;/president/gwbush/speeches/speech-on-comprehensive-immigration-reform&#39;,
+ &#39;/president/hoover/speeches/statement-on-the-economy&#39;,
+ &#39;/president/pierce/speeches/message-to-senate-on-treaty-with-mexico&#39;,
+ &#39;/president/mckinley/speeches/proclamation-regarding-blockade-of-cuba&#39;,
+ &#39;/president/roosevelt/speeches/proclamation-declaring-us-neutrality&#39;,
+ &#39;/president/obama/speeches/remarks-on-space-exploration-in-the-21st-century&#39;,
+ &#39;/president/ford/speeches/speech-3283&#39;,
+ &#39;/president/vanburen/speeches/speech-3591&#39;,
+ &#39;/president/jefferson/speeches/speech-3470&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3819&#39;,
+ &#39;/president/harding/speeches/america&#39;,
+ &#39;/president/tyler/speeches/message-regarding-finances-and-fiscal-policy&#39;,
+ &#39;/president/reagan/speeches/speech-5453&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5658&#39;,
+ &#39;/president/reagan/speeches/speech-5863&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3322&#39;,
+ &#39;/president/wilson/speeches/message-regarding-banking-system&#39;,
+ &#39;/president/bharrison/speeches/speech-3561&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5906&#39;,
+ &#39;/president/mckinley/speeches/speech-3769&#39;,
+ &#39;/president/gwbush/speeches/hurricane-relief-address-from-new-orleans&#39;,
+ &#39;/president/gwbush/speeches/address-on-military-operations-in-iraq&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3523&#39;,
+ &#39;/president/coolidge/speeches/message-regarding-relationship-of-church-and-state&#39;,
+ &#39;/president/madison/speeches/speech-3609&#39;,
+ &#39;/president/clinton/speeches/speech-3444&#39;,
+ &#39;/president/bush/speeches/speech-5529&#39;,
+ &#39;/president/obama/speeches/speech-on-health-care-reform&#39;,
+ &#39;/president/reagan/speeches/speech-3411&#39;,
+ &#39;/president/clinton/speeches/speech-3931&#39;,
+ &#39;/president/polk/speeches/message-regarding-settlement-with-mexico&#39;,
+ &#39;/president/washington/speeches/speech-3721&#39;,
+ &#39;/president/gwbush/speeches/remarks-on-no-child-left-behind-bill&#39;,
+ &#39;/president/adams/speeches/speech-3445&#39;,
+ &#39;/president/wilson/speeches/speech-3801&#39;,
+ &#39;/president/lincoln/speeches/speech-3508&#39;,
+ &#39;/president/kennedy/speeches/speech-5729&#39;,
+ &#39;/president/cleveland/speeches/message-regarding-the-financial-crisis1&#39;,
+ &#39;/president/obama/speeches/2013-state-of-the-union-address&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5660&#39;,
+ &#39;/president/truman/speeches/speech-3341&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3815&#39;,
+ &#39;/president/hoover/speeches/message-regarding-the-farm-bill&#39;,
+ &#39;/president/polk/speeches/message-regarding-cherokee-indians&#39;,
+ &#39;/president/wilson/speeches/wilsons-fourteen-points&#39;,
+ &#39;/president/coolidge/speeches/centennial-of-washingtons-command-of-the-continental-army&#39;,
+ &#39;/president/arthur/speeches/speech-3753&#39;,
+ &#39;/president/clinton/speeches/speech-5497&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3998&#39;,
+ &#39;/president/arthur/speeches/message-regarding-central-american-canal1&#39;,
+ &#39;/president/tyler/speeches/third-annual-message-to-congress&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3320&#39;,
+ &#39;/president/monroe/speeches/speech-3601&#39;,
+ &#39;/president/ford/speeches/speech-5499&#39;,
+ &#39;/president/fdroosevelt/speeches/opening-speech-of-the-conference-on-limitation-of-armament&#39;,
+ &#39;/president/grant/speeches/message-regarding-fourteenth-amendment&#39;,
+ &#39;/president/harding/speeches/nationalism-and-americanism&#39;,
+ &#39;/president/pierce/speeches/special-session-message-regarding-military-support&#39;,
+ &#39;/president/polk/speeches/request-to-increase-the-size-of-the-army&#39;,
+ &#39;/president/grant/speeches/message-regarding-dominican-republic-annexation&#39;,
+ &#39;/president/tyler/speeches/special-session-message-to-congress-regarding-general-affairs-of-the-countr&#39;,
+ &#39;/president/jackson/speeches/speech-3633&#39;,
+ &#39;/president/wilson/speeches/message-regarding-womens-suffrage&#39;,
+ &#39;/president/obama/speeches/2012-state-of-the-union-address&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5911&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4039&#39;,
+ &#39;/president/polk/speeches/second-annual-message-to-congress&#39;,
+ &#39;/president/reagan/speeches/speech-5446&#39;,
+ &#39;/president/obama/speeches/news-conference-on-congressional-gridlock&#39;,
+ &#39;/president/pierce/speeches/message-regarding-proposed-us-mexican-convention&#39;,
+ &#39;/president/obama/speeches/speech-on-gun-violence&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5666&#39;,
+ &#39;/president/hoover/speeches/statement-on-the-national-economy&#39;,
+ &#39;/president/nixon/speeches/speech-3884&#39;,
+ &#39;/president/coolidge/speeches/speech-3810&#39;,
+ &#39;/president/obama/speeches/address-to-the-united-nations&#39;,
+ &#39;/president/roosevelt/speeches/message-regarding-us-cuban-relations&#39;,
+ &#39;/president/hoover/speeches/speech-accepting-the-republican-nomination3&#39;,
+ &#39;/president/grant/speeches/message-regarding-intervention-in-louisiana&#39;,
+ &#39;/president/johnson/speeches/message-proclaiming-end-to-insurrection-in-the-united-states&#39;,
+ &#39;/president/kennedy/speeches/speech-3365&#39;,
+ &#39;/president/pierce/speeches/message-regarding-us-spanish-relations&#39;,
+ &#39;/president/jefferson/speeches/speech-3479&#39;,
+ &#39;/president/grant/speeches/speech-3744&#39;,
+ &#39;/president/hoover/speeches/fourth-state-of-the-union-address&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3332&#39;,
+ &#39;/president/eisenhower/speeches/speech-3358&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5939&#39;,
+ &#39;/president/jefferson/speeches/speech-3493&#39;,
+ &#39;/president/hoover/speeches/message-on-the-gold-standard&#39;,
+ &#39;/president/nixon/speeches/speech-3889&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3388&#39;,
+ &#39;/president/polk/speeches/message-to-senate-regarding-oregon&#39;,
+ &#39;/president/reagan/speeches/speech-5469&#39;,
+ &#39;/president/grant/speeches/veto-of-legislation-fixing-the-presidential-salary&#39;,
+ &#39;/president/jackson/speeches/speech-3632&#39;,
+ &#39;/president/roosevelt/speeches/speech-3564&#39;,
+ &#39;/president/tyler/speeches/veto-message-on-the-creation-of-a-fiscal-corporation&#39;,
+ &#39;/president/clinton/speeches/speech-4602&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5899&#39;,
+ &#39;/president/truman/speeches/speech-3354&#39;,
+ &#39;/president/jackson/speeches/nullification-proclamation&#39;,
+ &#39;/president/reagan/speeches/speech-5454&#39;,
+ &#39;/president/grant/speeches/proclamation-establishing-us-neutrality&#39;,
+ &#39;/president/reagan/speeches/speech-5683&#39;,
+ &#39;/president/cleveland/speeches/speech-3572&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5665&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3338&#39;,
+ &#39;/president/johnson/speeches/message-regarding-control-of-abandoned-lands-and-property&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3301&#39;,
+ &#39;/president/hoover/speeches/statement-regarding-economic-recovery&#39;,
+ &#39;/president/roosevelt/speeches/message-regarding-treaty-with-panama&#39;,
+ &#39;/president/reagan/speeches/speech-5680&#39;,
+ &#39;/president/reagan/speeches/speech-5465&#39;,
+ &#39;/president/harding/speeches/speech-3804&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5940&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4041&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5898&#39;,
+ &#39;/president/gwbush/speeches/remarks-on-freedom-in-iraq-and-middle-east&#39;,
+ &#39;/president/hoover/speeches/speech-3813&#39;,
+ &#39;/president/reagan/speeches/speech-5684&#39;,
+ &#39;/president/obama/speeches/remarks-on-trayvon-martin&#39;,
+ &#39;/president/wilson/speeches/veto-of-immigration-legislation&#39;,
+ &#39;/president/lincoln/speeches/speech-3509&#39;,
+ &#39;/president/bush/speeches/speech-3420&#39;,
+ &#39;/president/bush/speeches/speech-3422&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5662&#39;,
+ &#39;/president/hoover/speeches/message-regarding-unemployment-relief&#39;,
+ &#39;/president/jackson/speeches/speech-3637&#39;,
+ &#39;/president/washington/speeches/speech-3454&#39;,
+ &#39;/president/gwbush/speeches/address-on-signing-medicare-legislation&#39;,
+ &#39;/president/obama/speeches/remarks-on-sandy-hook-elementary-shootings&#39;,
+ &#39;/president/wilson/speeches/speech-3791&#39;,
+ &#39;/president/vanburen/speeches/speech-3593&#39;,
+ &#39;/president/bush/speeches/speech-3419&#39;,
+ &#39;/president/adams/speeches/speech-3466&#39;,
+ &#39;/president/ford/speeches/speech-5599&#39;,
+ &#39;/president/cleveland/speeches/veto-of-military-pension-legislation&#39;,
+ &#39;/president/jackson/speeches/veto-message-of-internal-improvement-legislation&#39;,
+ &#39;/president/cleveland/speeches/message-regarding-civil-service-reform&#39;,
+ &#39;/president/madison/speeches/speech-3624&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4036&#39;,
+ &#39;/president/kennedy/speeches/speech-5928&#39;,
+ &#39;/president/bharrison/speeches/message-regarding-death-of-treasury-secretary&#39;,
+ &#39;/president/tyler/speeches/speech-3549&#39;,
+ &#39;/president/washington/speeches/speech-3458&#39;,
+ &#39;/president/grant/speeches/message-regarding-insurrection-in-cuba&#39;,
+ &#39;/president/truman/speeches/speech-3340&#39;,
+ &#39;/president/harding/speeches/the-republic-must-awaken&#39;,
+ &#39;/president/mckinley/speeches/speech-3770&#39;,
+ &#39;/president/kennedy/speeches/speech-5731&#39;,
+ &#39;/president/cleveland/speeches/message-regarding-hawaiian-annexation1&#39;,
+ &#39;/president/monroe/speeches/speech-3603&#39;,
+ &#39;/president/reagan/speeches/speech-3405&#39;,
+ &#39;/president/gwbush/speeches/speech-3986&#39;,
+ &#39;/president/grant/speeches/speech-3742&#39;,
+ &#39;/president/kennedy/speeches/speech-5730&#39;,
+ &#39;/president/johnson/speeches/announcement-of-the-successful-suppression-of-the-rebellion&#39;,
+ &#39;/president/clinton/speeches/speech-4564&#39;,
+ &#39;/president/johnson/speeches/message-clarifying-the-reconstruction-acts&#39;,
+ &#39;/president/clinton/speeches/speech-3435&#39;,
+ &#39;/president/obama/speeches/nominee-acceptance-speech-at-2012-democratic-national-convention&#39;,
+ &#39;/president/obama/speeches/remarks-on-the-lilly-ledbetter-fair-pay-restoration-act-bill-signing&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3816&#39;,
+ &#39;/president/hoover/speeches/message-regarding-international-peace&#39;,
+ &#39;/president/buchanan/speeches/special-message-regarding-transit-across-central-america&#39;,
+ &#39;/president/grant/speeches/proclamation-regarding-fenian-brotherhood&#39;,
+ &#39;/president/fdroosevelt/speeches/liberty-under-the-law&#39;,
+ &#39;/president/wilson/speeches/message-regarding-military-draft&#39;,
+ &#39;/president/lincoln/speeches/speech-3507&#39;,
+ &#39;/president/fillmore/speeches/message-regarding-agreement-with-texas&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3299&#39;,
+ &#39;/president/madison/speeches/speech-3614&#39;,
+ &#39;/president/cleveland/speeches/messages-regarding-economic-crisis&#39;,
+ &#39;/president/obama/speeches/address-to-the-people-of-israel&#39;,
+ &#39;/president/carter/speeches/speech-3403&#39;,
+ &#39;/president/reagan/speeches/speech-3407&#39;,
+ &#39;/president/fillmore/speeches/second-annual-message1&#39;,
+ &#39;/president/ford/speeches/speech-3985&#39;,
+ &#39;/president/jqadams/speeches/speech-3517&#39;,
+ &#39;/president/clinton/speeches/speech-4563&#39;,
+ &#39;/president/obama/speeches/2016-state-of-the-union-address&#39;,
+ &#39;/president/reagan/speeches/speech-3408&#39;,
+ &#39;/president/cleveland/speeches/speech-3757&#39;,
+ &#39;/president/obama/speeches/speech-4453&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5900&#39;,
+ &#39;/president/harding/speeches/speech-3805&#39;,
+ &#39;/president/lincoln/speeches/speech-3736&#39;,
+ &#39;/president/wilson/speeches/fourth-of-july-address&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5525&#39;,
+ &#39;/president/gwbush/speeches/speech-4455&#39;,
+ &#39;/president/madison/speeches/speech-3613&#39;,
+ &#39;/president/reagan/speeches/speech-5681&#39;,
+ &#39;/president/reagan/speeches/speech-5679&#39;,
+ &#39;/president/fdroosevelt/speeches/readjustment&#39;,
+ &#39;/president/kennedy/speeches/speech-5740&#39;,
+ &#39;/president/clinton/speeches/speech-4562&#39;,
+ &#39;/president/jefferson/speeches/speech-3496&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3814&#39;,
+ &#39;/president/carter/speeches/speech-3400&#39;,
+ &#39;/president/johnson/speeches/messages-regarding-correspondence-with-general-u.s.-grant&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4038&#39;,
+ &#39;/president/ford/speeches/speech-3394&#39;,
+ &#39;/president/tyler/speeches/message-regarding-the-slave-trade&#39;,
+ &#39;/president/kennedy/speeches/speech-5669&#39;,
+ &#39;/president/kennedy/speeches/speech-3376&#39;,
+ &#39;/president/wilson/speeches/message-regarding-tampico-incident&#39;,
+ &#39;/president/kennedy/speeches/speech-5728&#39;,
+ &#39;/president/bharrison/speeches/statement-at-the-international-american-conference&#39;,
+ &#39;/president/bharrison/speeches/statement-on-the-johnstown-flood&#39;,
+ &#39;/president/johnson/speeches/message-following-the-death-of-abraham-lincoln&#39;,
+ &#39;/president/washington/speeches/speech-3451&#39;,
+ &#39;/president/cleveland/speeches/message-regarding-chinese-exclusion-act&#39;,
+ &#39;/president/johnson/speeches/proclamation-restoring-all-rights-to-rebellion-participants&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3387&#39;,
+ &#39;/president/kennedy/speeches/speech-5952&#39;,
+ &#39;/president/reagan/speeches/speech-5868&#39;,
+ &#39;/president/hoover/speeches/first-state-of-the-union-address&#39;,
+ &#39;/president/grant/speeches/message-on-presidential-powers-and-obligations&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3330&#39;,
+ &#39;/president/carter/speeches/speech-3402&#39;,
+ &#39;/president/nixon/speeches/speech-3879&#39;,
+ &#39;/president/reagan/speeches/speech-3406&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5913&#39;,
+ &#39;/president/bharrison/speeches/commemoration-of-the-centennial-of-washingtons-inauguration&#39;,
+ &#39;/president/grant/speeches/veto-message-regarding-restrictions-on-rebellion-participants&#39;,
+ &#39;/president/kennedy/speeches/speech-3375&#39;,
+ &#39;/president/clinton/speeches/speech-5495&#39;,
+ &#39;/president/obama/speeches/acceptance-of-nobel-peace-prize&#39;,
+ &#39;/president/lincoln/speeches/speech-3503&#39;,
+ &#39;/president/obama/speeches/speech-5706&#39;,
+ &#39;/president/obama/speeches/speech-4424&#39;,
+ &#39;/president/hoover/speeches/campaign-speech-in-indianapolis-indiana&#39;,
+ &#39;/president/polk/speeches/speech-3550&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3306&#39;,
+ &#39;/president/cleveland/speeches/speech-3755&#39;,
+ &#39;/president/obama/speeches/speech-4612&#39;,
+ &#39;/president/gwbush/speeches/address-on-the-u.s.-response-to-the-attacks-of-september-11&#39;,
+ &#39;/president/bharrison/speeches/speech-3767&#39;,
+ &#39;/president/fdroosevelt/speeches/the-republic-must-awaken&#39;,
+ &#39;/president/monroe/speeches/speech-3604&#39;,
+ &#39;/president/hoover/speeches/message-on-the-economy&#39;,
+ &#39;/president/grant/speeches/message-regarding-virginia-constitution&#39;,
+ &#39;/president/obama/speeches/remarks-on-immigration-reform&#39;,
+ &#39;/president/truman/speeches/speech-3342&#39;,
+ &#39;/president/wilson/speeches/message-regarding-safety-of-merchant-ships&#39;,
+ &#39;/president/tyler/speeches/message-regarding-treaty-with-texas&#39;,
+ &#39;/president/clinton/speeches/speech-3438&#39;,
+ &#39;/president/bush/speeches/speech-3425&#39;,
+ &#39;/president/kennedy/speeches/speech-3377&#39;,
+ &#39;/president/johnson/speeches/proclamation-pardoning-persons-who-participated-in-the-rebellion&#39;,
+ &#39;/president/ford/speeches/speech-5598&#39;,
+ &#39;/president/jackson/speeches/statement-on-the-independence-of-texas&#39;,
+ &#39;/president/kennedy/speeches/speech-3371&#39;,
+ &#39;/president/pierce/speeches/veto-message-on-legislation-funding-public-works&#39;,
+ &#39;/president/taft/speeches/speech-3783&#39;,
+ &#39;/president/obama/speeches/commencement-address-at-rutgers-university&#39;,
+ &#39;/president/arthur/speeches/veto-of-safety-regulations-bill&#39;,
+ &#39;/president/bush/speeches/speech-3431&#39;,
+ &#39;/president/cleveland/speeches/proclamation-regarding-railroad-strike&#39;,
+ &#39;/president/lincoln/speeches/speech-3487&#39;,
+ &#39;/president/harding/speeches/speech-3568&#39;,
+ &#39;/president/lincoln/speeches/speech-3737&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3573&#39;,
+ &#39;/president/bharrison/speeches/speech-3768&#39;,
+ &#39;/president/cleveland/speeches/veto-message-of-monetary-legislation&#39;,
+ &#39;/president/lincoln/speeches/speech-3739&#39;,
+ &#39;/president/reagan/speeches/speech-5842&#39;,
+ &#39;/president/obama/speeches/address-to-the-british-parliament&#39;,
+ &#39;/president/mckinley/speeches/speech-in-buffalo-new-york&#39;,
+ &#39;/president/nixon/speeches/speech-3876&#39;,
+ &#39;/president/cleveland/speeches/message-regarding-venezuelan-british-dispute&#39;,
+ &#39;/president/reagan/speeches/speech-3417&#39;,
+ &#39;/president/cleveland/speeches/veto-of-military-pension-legislation1&#39;,
+ &#39;/president/hayes/speeches/message-regarding-central-american-canal&#39;,
+ &#39;/president/fillmore/speeches/message-regarding-compromise-with-texas&#39;,
+ &#39;/president/fdroosevelt/speeches/nationalism-and-americanism&#39;,
+ &#39;/president/hoover/speeches/third-state-of-the-union-address&#39;,
+ &#39;/president/grant/speeches/message-approving-specie-resumption-act&#39;,
+ &#39;/president/grant/speeches/speech-3743&#39;,
+ &#39;/president/jqadams/speeches/speech-3513&#39;,
+ &#39;/president/bharrison/speeches/proclamation-regarding-indian-title-to-land&#39;,
+ &#39;/president/cleveland/speeches/declaration-of-us-neutrality&#39;,
+ &#39;/president/kennedy/speeches/speech-5765&#39;,
+ &#39;/president/vanburen/speeches/speech-3486&#39;,
+ &#39;/president/nixon/speeches/speech-3872&#39;,
+ &#39;/president/jefferson/speeches/speech-3502&#39;,
+ &#39;/president/gwbush/speeches/speech-4542&#39;,
+ &#39;/president/kennedy/speeches/speech-3379&#39;,
+ &#39;/president/roosevelt/speeches/speech-3775&#39;,
+ &#39;/president/madison/speeches/speech-3627&#39;,
+ &#39;/president/grant/speeches/message-submitting-state-constitutions-to-a-vote&#39;,
+ &#39;/president/reagan/speeches/speech-5450&#39;,
+ &#39;/president/eisenhower/speeches/speech-3357&#39;,
+ &#39;/president/hoover/speeches/statement-regarding-business-and-unemployment&#39;,
+ &#39;/president/clinton/speeches/speech-3436&#39;,
+ &#39;/president/grant/speeches/speech-3557&#39;,
+ &#39;/president/obama/speeches/second-inaugural-address&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3308&#39;,
+ &#39;/president/cleveland/speeches/speech-3571&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5904&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3314&#39;,
+ &#39;/president/reagan/speeches/speech-5682&#39;,
+ &#39;/president/madison/speeches/speech-3623&#39;,
+ &#39;/president/clinton/speeches/speech-3926&#39;,
+ &#39;/president/reagan/speeches/speech-5452&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3389&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3568&#39;,
+ &#39;/president/adams/speeches/speech-3942&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3382&#39;,
+ &#39;/president/obama/speeches/speech-4427&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3328&#39;,
+ &#39;/president/bush/speeches/speech-3423&#39;,
+ &#39;/president/polk/speeches/message-regarding-increase-in-military-force&#39;,
+ &#39;/president/kennedy/speeches/speech-5954&#39;,
+ &#39;/president/nixon/speeches/speech-3881&#39;,
+ &#39;/president/coolidge/speeches/speech-3809&#39;,
+ &#39;/president/madison/speeches/speech-3482&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5941&#39;,
+ &#39;/president/tyler/speeches/message-regarding-us-mexican-affairs&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5903&#39;,
+ &#39;/president/jackson/speeches/speech-3631&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5659&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5912&#39;,
+ &#39;/president/gwbush/speeches/remarks-at-the-republican-national-convention&#39;,
+ &#39;/president/nixon/speeches/speech-4638&#39;,
+ &#39;/president/gwbush/speeches/address-to-the-nation-on-iraq&#39;,
+ &#39;/president/tyler/speeches/message-regarding-indian-affairs-in-florida&#39;,
+ &#39;/president/reagan/speeches/speech-5856&#39;,
+ &#39;/president/reagan/speeches/speech-3412&#39;,
+ &#39;/president/pierce/speeches/speech-3553&#39;,
+ &#39;/president/jefferson/speeches/speech-3722&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3386&#39;,
+ &#39;/president/lbjohnson/speeches/speech-3525&#39;,
+ &#39;/president/bush/speeches/speech-3427&#39;,
+ &#39;/president/cleveland/speeches/speech-3762&#39;,
+ &#39;/president/jackson/speeches/speech-3644&#39;,
+ &#39;/president/reagan/speeches/speech-5676&#39;,
+ &#39;/president/clinton/speeches/speech-3925&#39;,
+ &#39;/president/harding/speeches/the-republican-party&#39;,
+ &#39;/president/polk/speeches/message-regarding-establishment-of-the-french-republic&#39;,
+ &#39;/president/washington/speeches/speech-3446&#39;,
+ &#39;/president/arthur/speeches/speech-3754&#39;,
+ &#39;/president/jackson/speeches/speech-3641&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5901&#39;,
+ &#39;/president/obama/speeches/2012-election-night-victory-speech&#39;,
+ &#39;/president/carter/speeches/speech-3399&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5934&#39;,
+ &#39;/president/tyler/speeches/veto-message-regarding-import-duties&#39;,
+ &#39;/president/fdroosevelt/speeches/enduring-popular-government&#39;,
+ &#39;/president/wilson/speeches/speech-3803&#39;,
+ &#39;/president/bharrison/speeches/speech-3765&#39;,
+ &#39;/president/jefferson/speeches/speech-3478&#39;,
+ &#39;/president/kennedy/speeches/speech-3368&#39;,
+ &#39;/president/washington/speeches/speech-3453&#39;,
+ &#39;/president/bush/speeches/speech-5605&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4033&#39;,
+ &#39;/president/tyler/speeches/message-to-congress-regarding-us-hawaiian-relations&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4035&#39;,
+ &#39;/president/obama/speeches/remarks-at-the-50th-anniversary-of-the-selma-marches&#39;,
+ &#39;/president/bharrison/speeches/speech-accepting-the-republican-nomination&#39;,
+ &#39;/president/jefferson/speeches/speech-3480&#39;,
+ &#39;/president/reagan/speeches/speech-5865&#39;,
+ &#39;/president/hoover/speeches/statement-on-foreign-debts&#39;,
+ &#39;/president/taft/speeches/speech-3782&#39;,
+ &#39;/president/hoover/speeches/message-regarding-london-naval-treaty&#39;,
+ &#39;/president/buchanan/speeches/message-to-congress-transmitting-the-constitution-of-kansas&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5914&#39;,
+ &#39;/president/madison/speeches/speech-3628&#39;,
+ &#39;/president/cleveland/speeches/message-regarding-chinese-immigrant-workers&#39;,
+ &#39;/president/polk/speeches/message-requesting-the-creation-of-an-oregon-territory&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5918&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3303&#39;,
+ &#39;/president/wilson/speeches/speech-3788&#39;,
+ &#39;/president/obama/speeches/remarks-on-the-afghanistan-pullout&#39;,
+ &#39;/president/roosevelt/speeches/announcement-of-the-death-of-president-mckinley&#39;,
+ &#39;/president/roosevelt/speeches/message-regarding-the-panamanian-revolution&#39;,
+ &#39;/president/bharrison/speeches/address-honoring-president-garfield&#39;,
+ &#39;/president/adams/speeches/speech-3465&#39;,
+ &#39;/president/harding/speeches/liberty-under-the-law&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3324&#39;,
+ &#39;/president/arthur/speeches/message-regarding-settlement-on-indian-territory&#39;,
+ &#39;/president/jefferson/speeches/speech-3495&#39;,
+ &#39;/president/reagan/speeches/speech-5854&#39;,
+ &#39;/president/eisenhower/speeches/speech-3359&#39;,
+ &#39;/president/wilson/speeches/speech-3795&#39;,
+ &#39;/president/madison/speeches/speech-3622&#39;,
+ &#39;/president/polk/speeches/message-regarding-treaty-with-cherokees&#39;,
+ &#39;/president/carter/speeches/speech-3401&#39;,
+ &#39;/president/nixon/speeches/speech-3885&#39;,
+ &#39;/president/cleveland/speeches/speech-3760&#39;,
+ &#39;/president/polk/speeches/fourth-annual-message-to-congress&#39;,
+ &#39;/president/vanburen/speeches/message-regarding-disputes-on-the-maine-canadian-border&#39;,
+ &#39;/president/jqadams/speeches/speech-3514&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3310&#39;,
+ &#39;/president/pierce/speeches/speech-3730&#39;,
+ &#39;/president/roosevelt/speeches/speech-3779&#39;,
+ &#39;/president/obama/speeches/address-to-the-nation-on-immigration&#39;,
+ &#39;/president/coolidge/speeches/speech-3811&#39;,
+ &#39;/president/johnson/speeches/veto-message-regarding-rebel-state-government&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3280&#39;,
+ &#39;/president/tyler/speeches/veto-message-regarding-infrastructure-improvements&#39;,
+ &#39;/president/johnson/speeches/veto-message-on-civil-rights-legislation&#39;,
+ &#39;/president/vanburen/speeches/speech-3724&#39;,
+ &#39;/president/obama/speeches/remarks-on-the-american-recovery-and-reinvestment-act&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3302&#39;,
+ &#39;/president/grant/speeches/proclamation-celebrating-the-hundredth-anniversary-of-independence&#39;,
+ &#39;/president/carter/speeches/speech-3396&#39;,
+ &#39;/president/carter/speeches/speech-5535&#39;,
+ &#39;/president/clinton/speeches/speech-4594&#39;,
+ &#39;/president/gwbush/speeches/second-inaugural-address1&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3318&#39;,
+ &#39;/president/harding/speeches/readjustment&#39;,
+ &#39;/president/washington/speeches/speech-3462&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4037&#39;,
+ &#39;/president/lbjohnson/speeches/speech-5922&#39;,
+ &#39;/president/obama/speeches/2014-state-of-the-union-address&#39;,
+ &#39;/president/jefferson/speeches/speech-3476&#39;,
+ &#39;/president/ford/speeches/speech-5500&#39;,
+ &#39;/president/nixon/speeches/speech-3882&#39;,
+ &#39;/president/carter/speeches/speech-5546&#39;,
+ &#39;/president/jackson/speeches/message-regarding-indian-removal&#39;,
+ &#39;/president/clinton/speeches/speech-4599&#39;,
+ &#39;/president/ford/speeches/speech-5501&#39;,
+ &#39;/president/bush/speeches/speech-3428&#39;,
+ &#39;/president/jackson/speeches/message-regarding-the-bank-of-the-united-states&#39;,
+ &#39;/president/johnson/speeches/establishing-rewards-for-the-arrest-of-certain-confederate-officers&#39;,
+ &#39;/president/fillmore/speeches/speech-3552&#39;,
+ &#39;/president/lincoln/speeches/speech-3506&#39;,
+ &#39;/president/reagan/speeches/speech-5858&#39;,
+ &#39;/president/johnson/speeches/message-reestablishing-governments-in-former-confederate-states&#39;,
+ &#39;/president/johnson/speeches/veto-message-on-admitting-colorado-into-the-union&#39;,
+ &#39;/president/johnson/speeches/veto-message-on-legislation-amending-the-judiciary&#39;,
+ &#39;/president/washington/speeches/speech-3455&#39;,
+ &#39;/president/obama/speeches/remarks-to-the-people-of-cuba&#39;,
+ &#39;/president/obama/speeches/address-on-the-end-of-the-combat-mission-in-iraq&#39;,
+ &#39;/president/obama/speeches/speech-on-american-diplomacy-in-the-middle-east-and-north-africa&#39;,
+ &#39;/president/kennedy/speeches/speech-5950&#39;,
+ &#39;/president/buchanan/speeches/speech-3733&#39;,
+ &#39;/president/reagan/speeches/speech-3410&#39;,
+ &#39;/president/arthur/speeches/veto-of-the-chinese-exclusion-act&#39;,
+ &#39;/president/truman/speeches/speech-3821&#39;,
+ &#39;/president/washington/speeches/speech-3452&#39;,
+ &#39;/president/wilson/speeches/message-regarding-tariff-duties&#39;,
+ &#39;/president/tyler/speeches/message-regarding-disturbances-in-rhode-island&#39;,
+ &#39;/president/bush/speeches/speech-5526&#39;,
+ &#39;/president/reagan/speeches/speech-3413&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4032&#39;,
+ &#39;/president/hoover/speeches/veto-messages-regarding-emergency-adjusted-compensation-act&#39;,
+ &#39;/president/grant/speeches/speech-3747&#39;,
+ &#39;/president/washington/speeches/speech-3447&#39;,
+ &#39;/president/fillmore/speeches/message-regarding-disturbance-in-boston&#39;,
+ &#39;/president/johnson/speeches/message-proposing-constitutional-amendments&#39;,
+ &#39;/president/polk/speeches/message-regarding-the-war-with-mexico&#39;,
+ &#39;/president/lbjohnson/speeches/speech-4040&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3313&#39;,
+ &#39;/president/pierce/speeches/speech-3727&#39;,
+ &#39;/president/hoover/speeches/campaign-speech-in-st-paul-minnesota&#39;,
+ &#39;/president/polk/speeches/announcement-of-peace-treaty-with-mexico&#39;,
+ &#39;/president/hayes/speeches/speech-3751&#39;,
+ &#39;/president/gwbush/speeches/speech-on-new-mother-and-child-hiv-prevention-initiative&#39;,
+ &#39;/president/gwbush/speeches/speech-4464&#39;,
+ &#39;/president/truman/speeches/speech-3344&#39;,
+ &#39;/president/lincoln/speeches/speech-3511&#39;,
+ &#39;/president/vanburen/speeches/speech-3726&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3304&#39;,
+ &#39;/president/pierce/speeches/speech-3729&#39;,
+ &#39;/president/kennedy/speeches/speech-5741&#39;,
+ &#39;/president/lincoln/speeches/speech-3738&#39;,
+ &#39;/president/hayes/speeches/message-regarding-railroad-strike&#39;,
+ &#39;/president/buchanan/speeches/message-on-resolutions-of-virginia&#39;,
+ &#39;/president/clinton/speeches/speech-4598&#39;,
+ &#39;/president/jefferson/speeches/speech-3471&#39;,
+ &#39;/president/kennedy/speeches/speech-5766&#39;,
+ &#39;/president/reagan/speeches/speech-3415&#39;,
+ &#39;/president/reagan/speeches/speech-5457&#39;,
+ &#39;/president/clinton/speeches/speech-3434&#39;,
+ &#39;/president/ford/speeches/speech-3392&#39;,
+ &#39;/president/hayes/speeches/veto-of-bland-allison-act&#39;,
+ &#39;/president/grant/speeches/message-regarding-unification-of-germany&#39;,
+ &#39;/president/carter/speeches/speech-3397&#39;,
+ &#39;/president/fillmore/speeches/third-annual-message1&#39;,
+ &#39;/president/johnson/speeches/message-restoring-tennessee-to-former-status&#39;,
+ &#39;/president/clinton/speeches/speech-3443&#39;,
+ &#39;/president/fdroosevelt/speeches/speech-3307&#39;,
+ &#39;/president/garfield/speeches/speech-3559&#39;,
+ &#39;/president/jqadams/speeches/speech-3484&#39;,
+ &#39;/president/reagan/speeches/speech-5852&#39;,
+ &#39;/president/buchanan/speeches/message-on-the-capture-of-the-wildfire&#39;,
+ &#39;/president/hayes/speeches/veto-message-regarding-immigration-legislation&#39;,
+ &#39;/president/wilson/speeches/speech-3567&#39;,
+ &#39;/president/buchanan/speeches/speech-3554&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Text-Analysis">Text Analysis<a class="anchor-link" href="#Text-Analysis">&#182;</a></h2><p><code>^\s*\S+(?:\s+\S+){4,}\s*$</code></p>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;iliad.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">iliad</span><span class="p">:</span>
+    <span class="n">iliad</span> <span class="o">=</span> <span class="n">iliad</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">iliad</span><span class="p">[</span><span class="mi">10052</span><span class="p">:</span><span class="mi">10475</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>For so long as
+Milton&#39;s works, whether his prose or his verse, shall exist, so long
+there will be abundant proof that no subject, however important,
+however sublime, can demand greater force of expression than is within
+the compass of the English language.
+
+I have no fear of judges familiar with original HOMER. They need not
+be told that a translation of him is an arduous enterprise, and as
+such, entitled to some favor.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;&#39;&#39;</span>
+
+<span class="s1">\s*    # A Space Character, or not.</span>
+<span class="s1">(\w+)  # One or more words Characters</span>
+<span class="s1">\s*    # Another Space Character, or not.</span>
+
+<span class="s1">&#39;&#39;&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">iliad</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;With Reg Ex:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;With the python split method:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">iliad</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>With Reg Ex: 184266
+With the python split method: 177140
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">r&#39;&#39;&#39;</span>
+
+<span class="s1"># Matches full sentences pertaining to war.</span>
+
+<span class="s1">.+     # Any Character one or more times.</span>
+<span class="s1">\s+    # A white space character, one or more times</span>
+<span class="s1">war    # The string &#39;war&#39;</span>
+<span class="s1">\s+    # A white space character, one or more times</span>
+<span class="s1">.+     # Any Character one or more times.</span>
+<span class="s1">\.     # A Period, literally.</span>
+
+<span class="s1">&#39;&#39;&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+
+<span class="n">matches</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">iliad</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;With Reg Ex:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>With Reg Ex: 25
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Validation">Validation<a class="anchor-link" href="#Validation">&#182;</a></h1>
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="HTML5-Form-Validation">HTML5 Form Validation<a class="anchor-link" href="#HTML5-Form-Validation">&#182;</a></h2><p><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation">https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation</a></p>
+
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>(\+\d{1,2})?(-|\()?(\d{10}|(\d{3}[\-|\)]{0,2}){2}\d{4})$</code></p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>^[a-z A-Z]{1,}\S$</code></p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>\w+@\w\.[a-z]{2,}</code>
+<code>\w+@[\w_-]\.[a-z]{2,}</code></p>
+
+</div>
+</div>
+</div></div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">html</span>
+
+&lt;input name=&#39;zipcode&#39; placeholder=&quot;zipcode&quot; pattern=\d{5}&gt;
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+
+<input name='zipcode' placeholder="zipcode" pattern=\d{5}>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">html</span>
+
+
+&lt;label&gt;Type &#39;javascript&#39; or &#39;ecmascript&#39;&lt;/label&gt;
+
+&lt;input pattern=&quot;(java|ecma)script&quot; required&gt;
+
+&lt;button&gt;Submit&lt;/button&gt;
+
+&lt;style&gt;
+
+input:invalid {
+  border: 1px solid red;
+}
+
+input:valid {
+  border: 1px solid green;
+}
+    
+&lt;/style&gt;
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+
+
+<label>Type 'javascript' or 'ecmascript'</label>
+
+<input pattern="(java|ecma)script" required>
+
+<button>Submit</button>
+
+<style>
+
+input:invalid {
+  border: 1px solid red;
+}
+
+input:valid {
+  border: 1px solid green;
+}
+    
+</style>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">html</span>
+
+&lt;input type=&quot;text&quot; placeholder=&quot;Name&quot; pattern=&quot;^[a-z A-Z]{1,}\S$&quot; required&gt;&lt;br&gt;
+
+&lt;input type=&quot;text&quot; placeholder=&quot;Phone Number&quot; pattern=&#39;(\+\d{1,2})?(-|\()?(\d{10}|(\d{3}[\-|\)]{0,2}){2}\d{4})$&#39; required&gt;&lt;br&gt;
+
+&lt;input type=&quot;text&quot; placeholder=&quot;E-mail&quot; pattern=&#39;\w+@\w\.[a-z]{2,}&#39; required&gt;&lt;br&gt;
+
+&lt;button&gt;Done&lt;/button&gt;
+
+&lt;style&gt;
+input:invalid {
+  border: 1px solid red;
+}
+
+input:valid {
+  border: 1px solid green;
+}
+&lt;/style&gt;
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+
+<div class="output_html rendered_html output_subarea ">
+
+<input type="text" placeholder="Name" pattern="^[a-z A-Z]{1,}\S$" required><br>
+
+<input type="text" placeholder="Phone Number" pattern='(\+\d{1,2})?(-|\()?(\d{10}|(\d{3}[\-|\)]{0,2}){2}\d{4})$' required><br>
+
+<input type="text" placeholder="E-mail" pattern='\w+@\w\.[a-z]{2,}' required><br>
+
+<button>Done</button>
+
+<style>
+input:invalid {
+  border: 1px solid red;
+}
+
+input:valid {
+  border: 1px solid green;
+}
+</style>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Django-URL-Routing">Django URL Routing<a class="anchor-link" href="#Django-URL-Routing">&#182;</a></h2>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Python RegEx "Named Groups" ----&gt; Parameter Capturing</p>
+
+</div>
+</div>
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+
+<pre><code>urlpatterns = [
+    url(r'^admin/', admin.site.urls),
+    url(r'^post/detail/(?P&lt;slug&gt;[a-z_A-z]+)$', home),
+]</code></pre>
+
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">get_object_or_404</span>
+<span class="c1">#from .models import Post</span>
+
+<span class="k">def</span> <span class="nf">post_detail_view</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">slug</span><span class="p">):</span>
+    <span class="n">post</span> <span class="o">=</span> <span class="n">Post</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">slug</span><span class="o">=</span><span class="n">slug</span><span class="p">)</span>
+    <span class="c1"># get_object_or_404()</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;presidents.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;post&#39;</span><span class="p">:</span> <span class="n">post</span><span class="p">})</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Interesting-Features">Interesting Features<a class="anchor-link" href="#Interesting-Features">&#182;</a></h1>
+</div>
+</div>
+</div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Lookarounds-/-Extensions">Lookarounds / Extensions<a class="anchor-link" href="#Lookarounds-/-Extensions">&#182;</a></h2>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li><code>(?=...)</code> Positive Lookahead - assert that a pattern matches in the future</li>
+<li><p><code>(?!...)</code> Negative Lookahead - assert a pattern does not match in the future</p>
+</li>
+<li><p><code>(?&lt;=...)</code> Positive Lookbehind - assert a pattern that must preceed the next expression</p>
+</li>
+<li><code>(?&lt;!...)</code> Negative Loohbehind - assert a pattern that must not preceed the next expression</li>
+</ul>
+
+</div>
+</div>
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Characterset-Negation">Characterset Negation<a class="anchor-link" href="#Characterset-Negation">&#182;</a></h2>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>[^!@#$%&amp;*()_+]</code> Match anything <em>except</em> the charset</p>
+
+</div>
+</div>
+</div></div></section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Lazy-Loops">Lazy Loops<a class="anchor-link" href="#Lazy-Loops">&#182;</a></h2>
+</div>
+</div>
+</div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="*-is-not-the-same-as-?">* is not the same as ?<a class="anchor-link" href="#*-is-not-the-same-as-?">&#182;</a></h2><p><code>re.compile('https?://')</code> will match url addresses with or without the optinal 's'</p>
+<p><code>re.compile('https*://')</code> may match 'httpssssss://'</p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Lazy-Quantifier">Lazy Quantifier<a class="anchor-link" href="#Lazy-Quantifier">&#182;</a></h4><p><code>&lt;div&gt;.*?&lt;/div&gt;</code>  Considers the future</p>
+
+</div>
+</div>
+</div></div><div class="fragment">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>note: Don't actually parse html with regular expressions.</p>
+
+</div>
+</div>
+</div></div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h4><ul>
+<li><p>RegExps are a <em>Swiss army knife</em></p>
+</li>
+<li><p>Remeber that RegEx has is a language with commands, loops, and flow control</p>
+</li>
+<li><p>Using Rgular Expressions may be a mistake!</p>
+</li>
+<li><p>Verbose / Extended Formatting</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="http://weknowmemes.com/generator/uploads/generated/g1386776306542781173.jpg" alt="Regex is Easy" title="Regex is easy"></p>
+
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Slide-Deck">Slide Deck<a class="anchor-link" href="#Slide-Deck">&#182;</a></h4>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Resources:</p>
+<ul>
+<li>Best Tool Ever: <a href="https://regex101.com/">https://regex101.com/</a></li>
+<li>RegExper: <a href="https://regexper.com/">https://regexper.com/</a></li>
+<li>Python3 Common RegExp Problems: <a href="https://docs.python.org/3/howto/regex.html#common-problems">https://docs.python.org/3/howto/regex.html#common-problems</a></li>
+<li>Miller Center: <a href="http://millercenter.org">http://millercenter.org</a></li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div></section></section>
 </div>
 </div>
